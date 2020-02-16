@@ -1,0 +1,81 @@
+
+import os
+
+
+
+class MapContent(object):
+    currentContent = []
+    pastContent = []
+
+
+class Row(object):
+    room = []
+    def __init__(self,room):
+        self.room=room
+
+class Room(MapContent):
+    x=0
+    y=0
+    def __init__(self,xCord:int,yCord:int):
+        self.x=xCord
+        self.y=yCord
+        #self.currentContent=currentContent
+
+class Map(object):
+    lastX = 1
+    lastY = 1
+    mapDict = {}
+    rows= []
+    x= 0
+    y=0
+
+
+
+
+        # if type(row[2].room[2]) == Room:
+        #     print("is room")
+        #      # row[2].room[2] is Room
+        #     negativeRoom = Room(-2,-2)
+        #     negativeRoom.currentContent = ["some subspace type shit"]
+        #     row[2].room[2].currentContent =["some sauce on floor", int(8), negativeRoom]
+
+
+        #map the map
+    def mapTheMap(self):
+        work ={}
+        for x in range(self.x):
+            for y in range(self.y):
+                room= self.row[x].room[y]
+                string = str(room.x) + str(room.y)
+                work[string] = room
+        return work
+
+        #print(row[2].room[2].currentContent)
+        #print(mapDict["22"].currentContent)
+
+
+    def __init__(self,x,y):
+        self.x=x
+        self.y=y
+        self.lastX = x-1
+        self.lastY = y-1
+        self.row = [Row([Room(i,j) for j in range(x)]) for i in range(y)]
+        self.mapDict=self.mapTheMap() #define self.mapDict
+        self.firstRoom =self.mapDict["00"]
+        self.lastRoom= self.mapDict[str(self.lastX)+str(self.lastY)]
+
+
+    def printClean(self):
+        for k,v in self.mapDict.items():
+            print(f"key = {k} value ={v} and x/y ={v.x}/{v.y}")
+        print(f"{self.firstRoom} first\n {self.lastRoom} last")
+
+
+def adventure():
+    mMap =Map(5,5)
+    print(mMap.x + mMap.y)
+    mMap.printClean()
+    #mMap.createMap()
+
+if __name__ == '__main__':
+    adventure()
